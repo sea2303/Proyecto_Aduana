@@ -7,4 +7,4 @@
 🇦🇷 integracion-service: Conecta con aduana argentina 
 📊 reportes-service: Crea archivos PDF y Excel
 ⏱️ flujo-service: Mide tiempos de espera (pp. 4-5)
-❓ ayuda-service: Muestra guías al usuario
+❓ ayuda-service: Muestra guías al usuario (hecho Carlos : falta testeo)
