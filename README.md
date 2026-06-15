@@ -5,6 +5,6 @@
 🍎 sag-service: Revisa alimentos y mascotas 
 👮 pdi-service: Controla entrada y salida 
 🇦🇷 integracion-service: Conecta con aduana argentina 
-📊 reportes-service: Crea archivos PDF y Excel
+📊 reportes-service: Crea archivos PDF y Excel (echo Renato:falta testeo)
 ⏱️ flujo-service: Mide tiempos de espera (pp. 4-5)
 ❓ ayuda-service: Muestra guías al usuario (hecho Carlos : falta testeo)
