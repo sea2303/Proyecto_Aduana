@@ -19,7 +19,7 @@ public class VehiculoService {
         return vehiculoRepository.findAll();
     }
 
-    public Optional<Vehiculo> obtenerPorId(Integer id) {
+    public Optional<Vehiculo> obtenerPorId(Long id) {
         return vehiculoRepository.findById(id);
     }
 
@@ -27,7 +27,7 @@ public class VehiculoService {
         return vehiculoRepository.save(vehiculo);
     }
 
-    public void eliminar(Integer id) {
+    public void eliminar(Long id) {
         vehiculoRepository.deleteById(id);
     }
 }
