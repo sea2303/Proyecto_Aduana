@@ -3,7 +3,7 @@ CREATE TABLE permisos_menores (
                                   nombre VARCHAR(100) NOT NULL,
                                   apellidos VARCHAR(100) NOT NULL,
                                   numero_documento VARCHAR(20) NOT NULL UNIQUE,
-                                  edad BIGINT NOT NULL,  -- <--- Aquí cambiamos INT por BIGINT para que coincida con tu Java
+                                  edad BIGINT NOT NULL,
                                   permiso_vigente BOOLEAN NOT NULL,
                                   estado_control VARCHAR(50) NOT NULL
 );
