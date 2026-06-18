@@ -5,6 +5,7 @@
 🍎 sag-service: Revisa alimentos y mascotas 
 👮 pdi-service: Controla entrada y salida 
 🇦🇷 integracion-service: Conecta con aduana argentina 
-📊 reportes-service: Crea archivos PDF y Excel (echo Renato:falta testeo)
+📊 reportes-service: Crea archivos PDF y Excel (no hecho Renato:falta todo)
 ⏱️ flujo-service: Mide tiempos de espera (pp. 4-5)
 ❓ ayuda-service: Muestra guías al usuario (hecho Carlos : falta testeo)
+(configurar todos los microservicios con eureka client y crear el microservico del api gateaway en donde van todos los microservicios conectados incluido el eureka server sol se le agrega el nombre del microservicio junto con el port y el url y terminar los 5 microservicios que faltan el eureka y gateaway son solo conectores no sirven )
