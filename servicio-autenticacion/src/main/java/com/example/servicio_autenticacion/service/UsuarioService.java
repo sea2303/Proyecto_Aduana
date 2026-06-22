@@ -3,9 +3,11 @@ package com.example.servicio_autenticacion.service;
 import com.example.servicio_autenticacion.model.Usuario;
 import com.example.servicio_autenticacion.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
