@@ -9,5 +9,5 @@
 ⏱️ flujo-service: Mide tiempos de espera (pp. 4-5)
 ❓ ayuda-service: Muestra guías al usuario (hecho Carlos : falta testeo)
 gateaway: (hecho por el tomas: se le ingresaron los respectivos microservicios ya creados y funcionando)
-eureka server:(hecho por sean se )
+eureka server:(hecho por sean, se configuro para que este listo para que los microservicios se enuentren automaticamente sin ingresar ip manualmente al gateaway)
 (configurar todos los microservicios con eureka client y crear el microservico del api gateaway en donde van todos los microservicios conectados incluido el eureka server sol se le agrega el nombre del microservicio junto con el port, el url y terminar los 5 microservicios que faltan el eureka, gateaway son solo conectores no sirven agregar el docker en los microservicios y en algunos agregar el swagger)
