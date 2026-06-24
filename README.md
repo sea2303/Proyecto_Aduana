@@ -2,7 +2,7 @@
 👤 pasajero_service: Gestiona los datos de turistas (hecho tomas: falta hacer testing)✅
 🚗 vehiculo-service: Controla permisos de autos (hecho sean: falta hacer el testing)✅
 👶 menores-service: Valida permisos de niños (hecho tomas : falta testeo, se hizo el testeo y se voi que funciono en el testeo sin lanzar errores al prender)✅
-🍎 sag-service: Revisa alimentos y mascotas 
+🍎 sag-service: Revisa alimentos y mascotas (hecho tomas : falta hacer testing)✅
 👮 pdi-service: Controla entrada y salida (hecho por carlos: en la prueba del testeo da error al pedir cierta informacion y al ingresar cierta informacion en el get tambien da error la solicion que tuvo que hacerce fue borrar la autorizacion)✅
 🇦🇷 integracion-service: Conecta con aduana argentina 
 📊 reportes-service: Crea archivos PDF y Excel 
