@@ -1,7 +1,5 @@
 package com.example.Servicio_pagos.service;
 
-import com.example.Servicio_pagos.client.EnviosClient;
-import com.example.Servicio_pagos.client.NotificacionesClient;
 import com.example.Servicio_pagos.dto.IntentoPagoDTO;
 import com.example.Servicio_pagos.model.Pago;
 import com.example.Servicio_pagos.repository.PagosRepository;
@@ -14,11 +12,6 @@ public class PagoService {
     @Autowired
     private PagosRepository pagosRepository;
 
-    @Autowired
-    private EnviosClient enviosClient;
-
-    @Autowired
-    private NotificacionesClient notificacionesClient;
 
     public Pago registrarPagoExitoso(IntentoPagoDTO datos){
         Pago pago = new Pago();
@@ -31,12 +24,6 @@ public class PagoService {
 
         Pago pagoGuardado = pagosRepository.save(pago);
 
-        try {
-            enviosClient.crearEnvio(pagoGuardado.getPedidoId());
-            notificacionesClient.enviarCorreoConfirmacion(pagoGuardado.getUsuarioId());
-        } catch (Exception e) {
-            System.out.println("Error al conectar con los otros microservicios: " + e.getMessage());
-        }
 
         return pagoGuardado;
     }
