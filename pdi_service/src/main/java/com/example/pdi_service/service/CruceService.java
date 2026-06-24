@@ -12,31 +12,31 @@ import java.util.Optional;
 public class CruceService {
 
     @Autowired
-    private CruceRepository cruceRepository;
+    private CruceRepository repository;
 
     public Cruce registrarCruce(Cruce cruce) {
-        return cruceRepository.save(cruce);
+        return repository.save(cruce);
     }
 
 
     public List<Cruce> listarCruces() {
-        return cruceRepository.findAll();
+        return repository.findAll();
     }
 
 
     public Optional<Cruce> buscarPorId(Long id) {
-        return cruceRepository.findById(id);
+        return repository.findById(id);
     }
 
     public Cruce actualizarEstado(Long id, String estado) {
-        Cruce cruce = cruceRepository.findById(id)
+        Cruce cruce = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cruce no encontrado"));
 
         cruce.setEstadoMigratorio(estado);
-        return cruceRepository.save(cruce);
+        return repository.save(cruce);
     }
 
     public void eliminarCruce(Long id) {
-        cruceRepository.deleteById(id);
+        repository.deleteById(id);
     }
 }
