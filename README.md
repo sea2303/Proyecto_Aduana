@@ -19,4 +19,5 @@ pasajero-service        = 8092
 Ayuda-service           = 8093
 Menores-service         = 8094
 Pdi-service             = 8095 
+SAG-service             = 8096
 Eureka-service          = 8761
