@@ -5,8 +5,8 @@
 🍎 sag-service: Revisa alimentos y mascotas (hecho tomas : falta hacer testing)✅
 👮 pdi-service: Controla entrada y salida (hecho por carlos: en la prueba del testeo da error al pedir cierta informacion y al ingresar cierta informacion en el get tambien da error la solicion que tuvo que hacerce fue borrar la autorizacion)✅
 🇦🇷 integracion-service: Conecta con aduana argentina 
-📊 reportes-service: Crea archivos PDF y Excel 
-⏱️ flujo-service: Mide tiempos de espera 
+📊 reportes-service: Crea archivos PDF y Excel ✅
+⏱️ flujo-service: Mide tiempos de espera ✅
 ❓ ayuda-service: Muestra guías al usuario (hecho Carlos : falta testeo)✅
 gateaway: (hecho por el tomas: se le ingresaron los respectivos microservicios ya creados y funcionando)✅
 eureka server:(hecho por sean, se configuro para que este listo para que los microservicios se enuentren automaticamente sin ingresar ip manualmente al gateaway)✅
