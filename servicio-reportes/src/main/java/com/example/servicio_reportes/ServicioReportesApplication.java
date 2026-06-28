@@ -1,13 +1,13 @@
-package com.example.reportes_service;
+package com.example.servicio_reportes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ReportesServiceApplication {
+public class ServicioReportesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReportesServiceApplication.class, args);
+		SpringApplication.run(ServicioReportesApplication.class, args);
 	}
 
 }
