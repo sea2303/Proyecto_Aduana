@@ -1,8 +1,8 @@
-package com.example.servicio_pagos.service;
+package com.example.Servicio_pagos.service;
 
-import com.example.servicio_pagos.dto.IntentoPagoDTO;
-import com.example.servicio_pagos.model.Pago;
-import com.example.servicio_pagos.repository.PagosRepository;
+import com.example.Servicio_pagos.dto.IntentoPagoDTO;
+import com.example.Servicio_pagos.model.Pago;
+import com.example.Servicio_pagos.repository.PagosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

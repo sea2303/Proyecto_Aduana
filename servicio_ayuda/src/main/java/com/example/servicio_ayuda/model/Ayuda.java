@@ -1,10 +1,12 @@
 package com.example.servicio_ayuda.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "solicitudes_ayuda")
+@Table(name = "ayudas")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,16 +15,7 @@ public class Ayuda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false, length = 50)
-    private String rutUsuario;
-
-    @Column(nullable = false, length = 50)
-    private String tipoAyuda;
-
-    @Column(nullable = false, length = 500)
+    private String usuarioId;
     private String descripcion;
-
-    @Column(nullable = false, length = 20)
     private String estado;
 }

@@ -23,6 +23,10 @@ public class VehiculoService {
         return vehiculoRepository.findById(id);
     }
 
+    public Optional<Vehiculo> obtenerPorPatente(String patente) {
+        return vehiculoRepository.findByPatente(patente);
+    }
+
     public Vehiculo guardar(Vehiculo vehiculo) {
         return vehiculoRepository.save(vehiculo);
     }

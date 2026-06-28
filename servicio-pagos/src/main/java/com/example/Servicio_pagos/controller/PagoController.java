@@ -1,8 +1,8 @@
-package com.example.servicio_pagos.controller;
+package com.example.Servicio_pagos.controller;
 
-import com.example.servicio_pagos.dto.IntentoPagoDTO;
-import com.example.servicio_pagos.model.Pago;
-import com.example.servicio_pagos.service.PagoService;
+import com.example.Servicio_pagos.dto.IntentoPagoDTO;
+import com.example.Servicio_pagos.model.Pago;
+import com.example.Servicio_pagos.service.PagoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

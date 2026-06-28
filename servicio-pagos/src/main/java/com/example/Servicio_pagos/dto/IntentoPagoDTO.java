@@ -1,4 +1,4 @@
-package com.example.servicio_pagos.dto;
+package com.example.Servicio_pagos.dto;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;

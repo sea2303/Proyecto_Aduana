@@ -3,37 +3,35 @@ package com.example.servicio_ayuda.service;
 import com.example.servicio_ayuda.model.Ayuda;
 import com.example.servicio_ayuda.repository.AyudaRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AyudaService {
 
-    private final AyudaRepository repository;
+    private final AyudaRepository ayudaRepository;
 
-    public AyudaService(AyudaRepository repository) {
-        this.repository = repository;
+    public AyudaService(AyudaRepository ayudaRepository) {
+        this.ayudaRepository = ayudaRepository;
     }
 
     public Ayuda crear(Ayuda solicitud) {
         solicitud.setEstado("pendiente");
-        return repository.save(solicitud);
+        return ayudaRepository.save(solicitud);
     }
 
     public List<Ayuda> listar() {
-        return repository.findAll();
+        return ayudaRepository.findAll();
     }
 
     public Optional<Ayuda> buscarPorId(Long id) {
-        return repository.findById(id);
+        return ayudaRepository.findById(id);
     }
 
     public Ayuda actualizarEstado(Long id, String estado) {
-        Ayuda s = repository.findById(id)
+        Ayuda ayuda = ayudaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));
-
-        s.setEstado(estado);
-        return repository.save(s);
+        ayuda.setEstado(estado);
+        return ayudaRepository.save(ayuda);
     }
 }
