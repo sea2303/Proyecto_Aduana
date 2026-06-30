@@ -98,13 +98,11 @@
 </div>
 
 <script>
-    // 🔌 CONEXIÓN CORRECTA AL GATEWAY CENTRAL
     const GATEWAY_URL = 'http://localhost:8080';
 
-    // 🚗 1. FUNCIÓN PARA CARGAR VEHÍCULOS
     async function cargarVehiculos() {
         const tbody = document.getElementById('tabla-vehiculos');
-        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">🔄 Conectando con el Gateway de Aduanas...</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">
 
         try {
             const response = await fetch(`${GATEWAY_URL}/vehiculo-service/api/vehiculos/`);
@@ -130,11 +128,10 @@
                     `;
             });
         } catch (error) {
-            tbody.innerHTML = `<tr><td colspan="5" class="text-center text-danger">❌ Error de conexión: ${error.message}</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="text-center text-danger">
         }
     }
 
-    // 🚗 2. LÓGICA PARA REGISTRAR UN VEHÍCULO (POST)
     document.getElementById('vehiculo-form').addEventListener('submit', async function(e) {
         e.preventDefault();
 
@@ -169,7 +166,6 @@
         }
     });
 
-    // 🔐 3. LÓGICA PARA CONTROLAR EL INICIO DE SESIÓN
     document.getElementById('login-form').addEventListener('submit', async function(e) {
         e.preventDefault();
 
