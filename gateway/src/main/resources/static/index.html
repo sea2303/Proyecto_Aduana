@@ -37,7 +37,7 @@
         </div>
 
         <div class="col-md-8">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm mb-4">
                 <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                     <span>Vehículos en Aduana</span>
                     <button onclick="cargarVehiculos()" class="btn btn-sm btn-light">🔄 Actualizar</button>
@@ -61,12 +61,44 @@
                     </table>
                 </div>
             </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">Registrar Nuevo Vehículo</div>
+                <div class="card-body">
+                    <form id="vehiculo-form">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Patente</label>
+                                <input type="text" id="vehiculo-patente" class="form-control" placeholder="AB-CD-12" required>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Marca</label>
+                                <input type="text" id="vehiculo-marca" class="form-control" placeholder="Toyota" required>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Modelo</label>
+                                <input type="text" id="vehiculo-modelo" class="form-control" placeholder="Yaris" required>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Estado</label>
+                                <select id="vehiculo-estado" class="form-control">
+                                    <option value="En Aduana">En Aduana</option>
+                                    <option value="Liberado">Liberado</option>
+                                    <option value="Retenido">Retenido</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Guardar Vehículo</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
 
 <script>
-    // Como el HTML ahora vive dentro del Gateway, le pega directamente a su propio host
+    // 🔌 CONEXIÓN CORRECTA AL GATEWAY CENTRAL
     const GATEWAY_URL = 'http://localhost:8080';
 
     // 🚗 1. FUNCIÓN PARA CARGAR VEHÍCULOS
@@ -75,7 +107,7 @@
         tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">🔄 Conectando con el Gateway de Aduanas...</td></tr>';
 
         try {
-            const response = await fetch(`${GATEWAY_URL}/api/vehiculos`);
+            const response = await fetch(`${GATEWAY_URL}/vehiculo-service/api/vehiculos/`);
             if (!response.ok) throw new Error(`Error en el servidor (Código: ${response.status})`);
 
             const vehiculos = await response.json();
@@ -102,24 +134,58 @@
         }
     }
 
-    // 🔐 2. LÓGICA PARA CONTROLAR EL INICIO DE SESIÓN
+    // 🚗 2. LÓGICA PARA REGISTRAR UN VEHÍCULO (POST)
+    document.getElementById('vehiculo-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const patenteInput = document.getElementById('vehiculo-patente').value;
+        const marcaInput = document.getElementById('vehiculo-marca').value;
+        const modeloInput = document.getElementById('vehiculo-modelo').value;
+        const estadoInput = document.getElementById('vehiculo-estado').value;
+
+        try {
+            const response = await fetch(`${GATEWAY_URL}/vehiculo-service/api/vehiculos/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    patente: patenteInput,
+                    marca: marcaInput,
+                    modelo: modeloInput,
+                    estado: estadoInput
+                })
+            });
+
+            if (response.ok) {
+                alert('¡Vehículo registrado exitosamente a través del Gateway!');
+                document.getElementById('vehiculo-form').reset();
+                cargarVehiculos();
+            } else {
+                alert('Error al guardar el vehículo en el servidor.');
+            }
+        } catch (error) {
+            alert('Error de conexión con el Gateway.');
+        }
+    });
+
+    // 🔐 3. LÓGICA PARA CONTROLAR EL INICIO DE SESIÓN
     document.getElementById('login-form').addEventListener('submit', async function(e) {
-        e.preventDefault(); // Evitar que la página se recargue solo
+        e.preventDefault();
 
         const rutInput = document.getElementById('login-rut').value;
         const passwordInput = document.getElementById('login-password').value;
         const badge = document.getElementById('user-badge');
 
         try {
-            // Envía los datos exactamente como los pide el controlador de Java de Autenticación
-            const response = await fetch(`${GATEWAY_URL}/api/autenticacion/login`, {
+            const response = await fetch(`${GATEWAY_URL}/servicio-autenticacion/api/autenticacion/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     rut: rutInput,
-                    contrasena: passwordInput // Coincide con tu UsuarioController
+                    contrasena: passwordInput
                 })
             });
 
@@ -128,16 +194,14 @@
             if (response.ok) {
                 alert("¡" + data.mensaje + "!");
                 badge.innerText = `👤 RUT: ${rutInput}`;
-                badge.className = "badge bg-success"; // Cambia el estado superior a verde
-
-                // Al loguearse correctamente, carga los vehículos al instante
+                badge.className = "badge bg-success";
                 cargarVehiculos();
             } else {
                 alert("Error: " + (data.error || "No se pudo iniciar sesión"));
             }
 
         } catch (error) {
-            alert("No hubo respuesta del servicio de autenticación. Verifica que el puerto 8090 esté corriendo.");
+            alert("No hubo respuesta del servicio de autenticación.");
         }
     });
 </script>

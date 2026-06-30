@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="vehiculo-service" />
+        <module name="Gateway-service" />
+        <module name="flujo-service" />
+        <module name="pasajero_service" />
+        <module name="menores-service" />
+        <module name="pdi_service" />
+        <module name="Servidor_eureka" />
+        <module name="servicio-autenticacion" />
+      </profile>
+      <profile name="Annotation profile for Servicio_pagos" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.4.2/spring-boot-configuration-processor-3.4.2.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="Servicio_pagos" />
+      </profile>
+      <profile name="Annotation profile for servicio_ayuda" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="servicio_ayuda" />
+      </profile>
+      <profile name="Annotation profile for sag-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="sag-service" />
+        <module name="servicio-reportes" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Gateway-service" options="-parameters" />
+      <module name="Servicio_pagos" options="-parameters" />
+      <module name="Servidor_eureka" options="-parameters" />
+      <module name="flujo-service" options="-parameters" />
+      <module name="menores-service" options="-parameters" />
+      <module name="pasajero_service" options="-parameters" />
+      <module name="pdi_service" options="-parameters" />
+      <module name="sag-service" options="-parameters" />
+      <module name="servicio-autenticacion" options="-parameters" />
+      <module name="servicio-reportes" options="-parameters" />
+      <module name="servicio_ayuda" options="-parameters" />
+      <module name="vehiculo-service" options="-parameters" />
+    </option>
+  </component>
+</project>
