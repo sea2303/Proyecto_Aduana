@@ -1,6 +1,5 @@
 package com.aduana.pasajero_service.service;
 
-
 import com.aduana.pasajero_service.model.Pasajero;
 import com.aduana.pasajero_service.repository.PasajeroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class PasajeroService {
 
     @Autowired
@@ -21,15 +19,23 @@ public class PasajeroService {
     }
 
     public Optional<Pasajero> obtenerPorDocumento(String documento){
-        return repository.findByNumeroDocumento(documento);
+        String docLimpio = (documento != null) ? documento.toUpperCase().trim() : "";
+        return repository.findByNumeroDocumento(docLimpio);
     }
 
     public Pasajero registrarPasajero(Pasajero pasajero){
-        if (pasajero.getEstadoControl() == null){
+        if (pasajero.getEstadoControl() == null || pasajero.getEstadoControl().isBlank()){
             pasajero.setEstadoControl("EN_REVISION");
         }
+
+        if (pasajero.getNumeroDocumento() != null) {
+            pasajero.setNumeroDocumento(pasajero.getNumeroDocumento().toUpperCase().trim());
+        }
+
         return repository.save(pasajero);
     }
 
-
+    public boolean verificarPasajeroExiste(String documento) {
+        return obtenerPorDocumento(documento).isPresent();
+    }
 }
