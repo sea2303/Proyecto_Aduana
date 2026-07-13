@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +24,9 @@ public class Vehiculo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Schema(example = "BBCC-12")
+    @NotBlank(message = "La patente no puede estar vacía")
+    @Size(min = 6, max = 10, message = "La patente debe tener entre 6 y 10 caracteres")
+    @Schema(example = "BBCC-12", description = "Patente única del vehículo")
     private String patente;
 
     @Schema(example = "Toyota")

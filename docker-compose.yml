@@ -3,38 +3,18 @@ services:
     image: mysql:8.0
     container_name: auth-mysql-db
     environment:
-      MYSQL_ROOT_PASSWORD: root_secure_pass
+      MYSQL_ROOT_PASSWORD: password
     ports:
-      - "3308:3306"
+      - "3306:3306"
     volumes:
       - auth_db_data:/var/lib/mysql
     networks:
       - aduana-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot_secure_pass"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ppassword"]
       interval: 5s
       timeout: 5s
       retries: 5
-
-  auth-service:
-    build: ./servicio-autenticacion
-    container_name: servicio-autenticacion
-    ports:
-      - "8089:8089"
-    environment:
-      - SERVER_PORT=8089
-      - SPRING_DATASOURCE_URL=jdbc:mysql://auth-db:3306/autenticacion_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root_secure_pass
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servidor-eureka:8761/eureka/
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    depends_on:
-      auth-db:
-        condition: service_healthy
-      servidor-eureka:
-        condition: service_started
-    networks:
-      - aduana-network
 
   servidor-eureka:
     build: ./servidor-eureka
@@ -50,20 +30,23 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servidor-eureka:8761/eureka/
+      - EUREKA_HOST=servidor-eureka
     depends_on:
       servidor-eureka:
         condition: service_started
     networks:
       - aduana-network
 
-  servicio-ayuda:
-    build: ./servicio_ayuda
+  auth-service:
+    build: ./servicio-autenticacion
+    container_name: servicio-autenticacion
+    ports:
+      - "8081:8081"
     environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servidor-eureka:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://auth-db:3306/ayuda_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root_secure_pass
+      - DB_HOST=auth-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - EUREKA_HOST=servidor-eureka
     depends_on:
       auth-db:
         condition: service_healthy
@@ -72,58 +55,16 @@ services:
     networks:
       - aduana-network
 
-  servicio-flujo:
-    build: ./servicio-flujo
-    environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servidor-eureka:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://auth-db:3306/flujo_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root_secure_pass
-    depends_on:
-      auth-db:
-        condition: service_healthy
-      servidor-eureka:
-        condition: service_started
-    networks:
-      - aduana-network
-
-  servicio-menores:
-    build: ./servicio-menores
-    environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servidor-eureka:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://auth-db:3306/menores_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root_secure_pass
-    depends_on:
-      auth-db:
-        condition: service_healthy
-      servidor-eureka:
-        condition: service_started
-    networks:
-      - aduana-network
-
-  servicio-pagos:
-    build: ./servicio-pagos
-    environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servidor-eureka:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://auth-db:3306/pagos_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root_secure_pass
-    depends_on:
-      auth-db:
-        condition: service_healthy
-      servidor-eureka:
-        condition: service_started
-    networks:
-      - aduana-network
-
-  servicio-pasajero:
+  pasajero-service:
     build: ./servicio-pasajero
+    container_name: pasajero-service
+    ports:
+      - "8082:8082"
     environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servidor-eureka:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://auth-db:3306/pasajeros_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root_secure_pass
+      - DB_HOST=auth-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - EUREKA_HOST=servidor-eureka
     depends_on:
       auth-db:
         condition: service_healthy
@@ -132,58 +73,142 @@ services:
     networks:
       - aduana-network
 
-  servicio-pdi:
-    build: ./servicio-pdi
-    environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servidor-eureka:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://auth-db:3306/pdi_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root_secure_pass
-    depends_on:
-      auth-db:
-        condition: service_healthy
-      servidor-eureka:
-        condition: service_started
-    networks:
-      - aduana-network
-
-  servicio-reportes:
-    build: ./servicio-reportes
-    environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servidor-eureka:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://auth-db:3306/reportes_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root_secure_pass
-    depends_on:
-      auth-db:
-        condition: service_healthy
-      servidor-eureka:
-        condition: service_started
-    networks:
-      - aduana-network
-
-  servicio-sag:
-    build: ./servicio-sag
-    environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servidor-eureka:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://auth-db:3306/sag_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root_secure_pass
-    depends_on:
-      auth-db:
-        condition: service_healthy
-      servidor-eureka:
-        condition: service_started
-    networks:
-      - aduana-network
-
-  servicio-vehiculo:
+  vehiculo-service:
     build: ./servicio-vehiculo
+    container_name: vehiculo-service
+    ports:
+      - "8083:8083"
     environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servidor-eureka:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://auth-db:3306/vehiculo_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root_secure_pass
+      - DB_HOST=auth-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - EUREKA_HOST=servidor-eureka
+    depends_on:
+      auth-db:
+        condition: service_healthy
+      servidor-eureka:
+        condition: service_started
+    networks:
+      - aduana-network
+
+  ayuda-service:
+    build: ./servicio_ayuda
+    container_name: ayuda-service
+    ports:
+      - "8084:8084"
+    environment:
+      - DB_HOST=auth-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - EUREKA_HOST=servidor-eureka
+    depends_on:
+      auth-db:
+        condition: service_healthy
+      servidor-eureka:
+        condition: service_started
+    networks:
+      - aduana-network
+
+  flujo-service:
+    build: ./servicio-flujo
+    container_name: flujo-service
+    ports:
+      - "8085:8085"
+    environment:
+      - DB_HOST=auth-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - EUREKA_HOST=servidor-eureka
+    depends_on:
+      auth-db:
+        condition: service_healthy
+      servidor-eureka:
+        condition: service_started
+    networks:
+      - aduana-network
+
+  menores-service:
+    build: ./servicio-menores
+    container_name: menores-service
+    ports:
+      - "8086:8086"
+    environment:
+      - DB_HOST=auth-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - EUREKA_HOST=servidor-eureka
+    depends_on:
+      auth-db:
+        condition: service_healthy
+      servidor-eureka:
+        condition: service_started
+    networks:
+      - aduana-network
+
+  pdi-service:
+    build: ./servicio-pdi
+    container_name: pdi-service
+    ports:
+      - "8087:8087"
+    environment:
+      - DB_HOST=auth-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - EUREKA_HOST=servidor-eureka
+    depends_on:
+      auth-db:
+        condition: service_healthy
+      servidor-eureka:
+        condition: service_started
+    networks:
+      - aduana-network
+
+  reportes-service:
+    build: ./servicio-reportes
+    container_name: reportes-service
+    ports:
+      - "8088:8088"
+    environment:
+      - DB_HOST=auth-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - EUREKA_HOST=servidor-eureka
+    depends_on:
+      auth-db:
+        condition: service_healthy
+      servidor-eureka:
+        condition: service_started
+    networks:
+      - aduana-network
+
+  sag-service:
+    build: ./servicio-sag
+    container_name: sag-service
+    ports:
+      - "8089:8089"
+    environment:
+      - DB_HOST=auth-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - EUREKA_HOST=servidor-eureka
+    depends_on:
+      auth-db:
+        condition: service_healthy
+      servidor-eureka:
+        condition: service_started
+    networks:
+      - aduana-network
+
+  pagos-service:
+    build: ./servicio-pagos
+    container_name: pagos-service
+    ports:
+      - "8090:8090"
+    environment:
+      - DB_HOST=auth-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - EUREKA_HOST=servidor-eureka
     depends_on:
       auth-db:
         condition: service_healthy

@@ -1,0 +1,75 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: servicio-autenticacion
+          uri: lb://servicio-autenticacion
+          predicates:
+            - Path=/auth/**
+
+        - id: pasajero-service
+          uri: lb://pasajero-service
+          predicates:
+            - Path=/pasajeros/**
+
+        - id: vehiculo-service
+          uri: lb://vehiculo-service
+          predicates:
+            - Path=/vehiculos/**
+
+        - id: ayuda-service
+          uri: lb://ayuda-service
+          predicates:
+            - Path=/ayuda/**
+
+        - id: flujo-service
+          uri: lb://flujo-service
+          predicates:
+            - Path=/flujo/**
+
+        - id: menores-service
+          uri: lb://menores-service
+          predicates:
+            - Path=/menores/**
+          filters:
+            - RewritePath=/menores/(?<segment>.*), /api/v1/menores/$\\{segment}
+
+        - id: pdi-service
+          uri: lb://pdi-service
+          predicates:
+            - Path=/pdi/**
+          filters:
+            - RewritePath=/pdi/(?<segment>.*), /api/cruces/$\\{segment}
+
+        - id: reportes-service
+          uri: lb://reportes-service
+          predicates:
+            - Path=/reportes/**
+
+        - id: sag-service
+          uri: lb://sag-service
+          predicates:
+            - Path=/sag/**
+
+        - id: pagos-service
+          uri: lb://pagos-service
+          predicates:
+            - Path=/pagos/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true

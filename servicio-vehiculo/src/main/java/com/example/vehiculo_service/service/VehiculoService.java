@@ -28,6 +28,14 @@ public class VehiculoService {
     }
 
     public Vehiculo guardar(Vehiculo vehiculo) {
+        if (vehiculo.getPatente() != null) {
+            vehiculo.setPatente(vehiculo.getPatente().trim().toUpperCase());
+        }
+
+        if (!vehiculo.isTienePermisoArgentina()) {
+            System.out.println("ALERTA ADUANA: Sin permiso.");
+        }
+
         return vehiculoRepository.save(vehiculo);
     }
 

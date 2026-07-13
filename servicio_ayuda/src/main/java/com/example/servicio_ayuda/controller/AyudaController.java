@@ -4,6 +4,7 @@ import com.example.servicio_ayuda.model.Ayuda;
 import com.example.servicio_ayuda.service.AyudaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/ayuda")
+@CrossOrigin(origins = "*")
 @Tag(name = "Soporte y Ayuda")
 public class AyudaController {
 
@@ -22,7 +24,7 @@ public class AyudaController {
 
     @PostMapping("/tickets")
     @Operation(summary = "Crear ticket")
-    public ResponseEntity<Ayuda> crearTicket(@RequestBody Ayuda solicitud) {
+    public ResponseEntity<Ayuda> crearTicket(@Valid @RequestBody Ayuda solicitud) {
         return ResponseEntity.ok(ayudaService.crear(solicitud));
     }
 
