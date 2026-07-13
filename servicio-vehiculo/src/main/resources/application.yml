@@ -23,6 +23,7 @@ eureka:
       defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
+    #http://localhost:8083/swagger-ui/index.html para entrar al swagger para testear
 
 springdoc:
   api-docs:
