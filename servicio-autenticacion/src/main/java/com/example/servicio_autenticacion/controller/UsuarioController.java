@@ -4,6 +4,7 @@ import com.example.servicio_autenticacion.model.Usuario;
 import com.example.servicio_autenticacion.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class UsuarioController {
 
     @PostMapping("/registro")
     @Operation(summary = "Registrar un nuevo usuario", description = "Crea un usuario en el sistema encriptando su contraseña con BCrypt")
-    public ResponseEntity<?> registrar(@RequestBody Usuario usuario) {
+    public ResponseEntity<?> registrar(@Valid @RequestBody Usuario usuario) {
         try {
             Usuario nuevoUsuario = usuarioService.registrarUsuario(usuario);
             return ResponseEntity.ok(nuevoUsuario);
